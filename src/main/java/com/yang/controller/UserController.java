@@ -9,6 +9,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user")
 public class UserController {
 
+    @RequestMapping("/commonParam")
+    @ResponseBody
+    public String commonParam(String name, int age){
+        System.out.println("普通参数传递 name ==> "+name);
+        System.out.println("普通参数传递 age ==> "+age);
+
+        return "{'module':'commonParam'}";
+    }
+
     @RequestMapping("/save")
     @ResponseBody
     public String save(){

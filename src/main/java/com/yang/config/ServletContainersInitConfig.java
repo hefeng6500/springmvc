@@ -2,8 +2,11 @@ package com.yang.config;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 //web容器配置类
 //public class ServletContainersInitConfig extends AbstractDispatcherServletInitializer {
@@ -34,7 +37,7 @@ import org.springframework.web.servlet.support.AbstractDispatcherServletInitiali
 //    对于上述的配置方式，Spring还提供了一种更简单的配置方式，可以不用再去创建`AnnotationConfigWebApplicationContext`对象，不用手动`register`对应的配置类，如何实现?
 public class ServletContainersInitConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{SpringConfig.class};
+        return new Class[0];
     }
 
     protected Class<?>[] getServletConfigClasses() {
@@ -43,5 +46,13 @@ public class ServletContainersInitConfig extends AbstractAnnotationConfigDispatc
 
     protected String[] getServletMappings() {
         return new String[]{"/"};
+    }
+
+    //乱码处理
+    @Override
+    protected Filter[] getServletFilters() {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        return new Filter[]{filter};
     }
 }
